@@ -1,0 +1,109 @@
+@import "tailwindcss";
+
+@theme {
+  /* Brand Colors */
+  --color-navy: #001748;
+  --color-navy-dark: #000e2e;
+  --color-navy-light: #002060;
+  --color-primary: #026BF3;
+  --color-turquesa: #02C2B5;
+  --color-turquesa-light: #E6F9F7;
+  --color-turquesa-dark: #019E93;
+
+  /* Font */
+  --font-sans: 'Poppins', 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+}
+
+@layer base {
+  html, body, button, input, select, textarea {
+    font-family: var(--font-sans);
+  }
+}
+
+/* === Gradients === */
+.text-gradient-turquesa {
+  background: linear-gradient(135deg, #02C2B5 0%, #026BF3 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.bg-gradient-hero {
+  background: radial-gradient(circle at 50% 0%, rgba(2, 194, 181, 0.06) 0%, rgba(248, 250, 252, 0) 70%);
+}
+
+/* === Animations === */
+@keyframes float-gentle {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes float-gentle-delayed {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.animate-float {
+  animation: float-gentle 5s ease-in-out infinite;
+}
+
+.animate-float-delayed {
+  animation: float-gentle-delayed 4s ease-in-out infinite;
+  animation-delay: 1.5s;
+}
+
+/* === Section Title Underline === */
+.section-underline {
+  position: relative;
+  display: inline-block;
+}
+
+.section-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 48px;
+  height: 3px;
+  background-color: #02C2B5;
+  border-radius: 999px;
+}
+
+/* === CTA Dot Pattern Background === */
+.dot-pattern {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+/* === Dashed Connector for Process Section === */
+.step-connector {
+  position: relative;
+}
+
+.step-connector::after {
+  content: '';
+  position: absolute;
+  top: 36px;
+  right: -32px;
+  width: 48px;
+  height: 0;
+  border-top: 2px dashed #02C2B5;
+  opacity: 0.5;
+}
+
+/* === Glass Panels (kept for potential use) === */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(226, 232, 240, 0.8);
+}

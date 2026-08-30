@@ -1,20 +1,20 @@
 import React from 'react';
-import { ArrowRight, Code2, Target, Sliders, Shield, CheckCircle } from 'lucide-react';
+import { ArrowRight, Sliders, Shield, CheckCircle } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Button } from '../../components/Button/Button';
 
 export const Hero: React.FC = () => {
   return (
-    <section className="relative pt-16 pb-12 lg:pt-18 lg:pb-16 overflow-hidden bg-white">
-      {/* 2-column flex container: Left side aligned with container, Right side 100% full-bleed to screen edge */}
-      <div className="w-full flex flex-col lg:flex-row items-center justify-between">
+    <section className="relative min-h-[calc(100vh-1px)] lg:min-h-screen flex flex-col justify-between pt-20 lg:pt-22 bg-white overflow-hidden">
+      {/* 2-column flex container: Centered Vertically */}
+      <div className="w-full flex-grow flex flex-col lg:flex-row items-center justify-between my-auto py-4 lg:py-6">
 
         {/* Left Column: Aligned with page container padding */}
         <motion.div
           initial={{ opacity: 0, x: -30 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.7, ease: 'easeOut' }}
-          className="w-full lg:w-[48%] xl:w-[45%] pl-4 sm:pl-6 lg:pl-8 xl:pl-[max(2rem,calc((100vw-80rem)/2+2rem))] pr-4 lg:pr-6 space-y-6 text-left shrink-0 z-20 py-4 lg:py-6"
+          className="w-full lg:w-[48%] xl:w-[45%] pl-4 sm:pl-6 lg:pl-8 xl:pl-[max(2rem,calc((100vw-80rem)/2+2rem))] pr-4 lg:pr-6 space-y-6 text-left shrink-0 z-20 py-2 lg:py-4"
         >
           {/* Headline — 3 Clean Balanced Lines */}
           <h1 className="text-3xl sm:text-4xl lg:text-[2.65rem] xl:text-[3.1rem] font-extrabold text-navy tracking-tight leading-[1.18]">
@@ -31,7 +31,7 @@ export const Hero: React.FC = () => {
           </p>
 
           {/* CTA Buttons */}
-          <div className="flex flex-wrap items-center gap-3.5 pt-2">
+          <div className="flex flex-wrap items-center gap-3.5 pt-1">
             <a href="#contacto">
               <Button variant="primary" size="lg" icon={<ArrowRight className="w-4 h-4" />}>
                 Hablemos de tu proyecto
@@ -43,91 +43,72 @@ export const Hero: React.FC = () => {
               </Button>
             </a>
           </div>
-
-          {/* Mini Features Row */}
-          <div className="pt-8 border-t border-gray-100 grid grid-cols-3 gap-4">
-            <div className="flex items-start gap-2.5">
-              <div className="w-8 h-8 rounded-xl bg-turquesa-light text-turquesa flex items-center justify-center shrink-0 mt-0.5 border border-turquesa/20">
-                <Sliders className="w-4 h-4 text-turquesa" />
-              </div>
-              <div>
-                <div className="text-xs sm:text-sm font-bold text-navy">A medida</div>
-                <div className="text-[11px] text-gray-500 leading-tight">Soluciones 100% personalizadas</div>
-              </div>
-            </div>
-
-            <div className="flex items-start gap-2.5">
-              <div className="w-8 h-8 rounded-xl bg-turquesa-light text-turquesa flex items-center justify-center shrink-0 mt-0.5 border border-turquesa/20">
-                <CheckCircle className="w-4 h-4 text-turquesa" />
-              </div>
-              <div>
-                <div className="text-xs sm:text-sm font-bold text-navy">Escalables</div>
-                <div className="text-[11px] text-gray-500 leading-tight">Pensadas para crecer contigo</div>
-              </div>
-            </div>
-
-            <div className="flex items-start gap-2.5">
-              <div className="w-8 h-8 rounded-xl bg-turquesa-light text-turquesa flex items-center justify-center shrink-0 mt-0.5 border border-turquesa/20">
-                <Shield className="w-4 h-4 text-turquesa" />
-              </div>
-              <div>
-                <div className="text-xs sm:text-sm font-bold text-navy">Confiables</div>
-                <div className="text-[11px] text-gray-500 leading-tight">Tecnologías modernas y seguras</div>
-              </div>
-            </div>
-          </div>
         </motion.div>
 
-        {/* Right Column: 100% Full-Bleed & Attached Higher to Header */}
+        {/* Right Column: Positioned comfortably below header */}
         <motion.div
           initial={{ opacity: 0, x: 30 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.7, ease: 'easeOut', delay: 0.2 }}
-          className="w-full lg:w-[52%] xl:w-[55%] relative select-none flex items-center justify-end -mt-10 lg:-mt-16 xl:-mt-22 pr-0"
+          className="w-full lg:w-[52%] xl:w-[55%] relative select-none flex items-center justify-end mt-0 lg:-mt-3 xl:-mt-5 pr-0"
         >
           <div className="relative w-full flex justify-end items-center">
 
-            {/* Full-bleed Composition Image touching the right screen border */}
+            {/* Full-bleed Composition Image touching the right screen border & header */}
             <img
               src="/hero-composition.jpg"
               alt="Ampersand Development Workstation"
-              className="w-full h-auto object-contain object-right pointer-events-none select-none"
+              className="w-[110%] max-w-none h-auto object-cover object-right pointer-events-none select-none -mr-[2%] -ml-[5%]"
             />
-
-            {/* Floating Card 1 — Top Left of the Graphic ("Código limpio") */}
-            <motion.div
-              animate={{ y: [0, -9, 0] }}
-              transition={{ duration: 4.2, repeat: Infinity, ease: 'easeInOut' }}
-              className="absolute top-[5%] sm:top-[7%] left-[12%] sm:left-[18%] lg:left-[22%] bg-white px-4 py-3 rounded-2xl shadow-xl border border-gray-100/90 flex items-center gap-3.5 z-30"
-            >
-              <div className="w-10 h-10 rounded-xl bg-turquesa-light flex items-center justify-center shrink-0 border border-turquesa/20">
-                <Code2 className="w-5 h-5 text-turquesa" />
-              </div>
-              <div>
-                <div className="text-xs sm:text-sm font-extrabold text-navy leading-tight">Código limpio</div>
-                <div className="text-[10px] text-gray-500 font-medium">Buenas prácticas en cada línea</div>
-              </div>
-            </motion.div>
-
-            {/* Floating Card 2 — Bottom Right ("Enfoque en resultado") */}
-            <motion.div
-              animate={{ y: [0, -8, 0] }}
-              transition={{ duration: 3.8, repeat: Infinity, ease: 'easeInOut', delay: 1.2 }}
-              className="absolute bottom-[2%] sm:bottom-[4%] right-2 sm:right-6 lg:right-8 bg-white px-4 py-3 rounded-2xl shadow-xl border border-gray-100/90 flex items-center gap-3.5 z-30"
-            >
-              <div className="w-10 h-10 rounded-xl bg-turquesa-light flex items-center justify-center shrink-0 border border-turquesa/20">
-                <Target className="w-5 h-5 text-turquesa" />
-              </div>
-              <div>
-                <div className="text-xs sm:text-sm font-extrabold text-navy leading-tight">Enfoque en resultado</div>
-                <div className="text-[11px] text-gray-500 font-medium">Tu objetivo, nuestro compromiso</div>
-              </div>
-            </motion.div>
 
           </div>
         </motion.div>
 
       </div>
+
+      {/* Full-width Features Divider Strip Pinned Flush to Bottom Viewport Edge */}
+      <motion.div
+        initial={{ opacity: 0, y: 15 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, ease: 'easeOut', delay: 0.3 }}
+        className="w-full bg-[#000e2e] border-t border-white/10 border-b border-white/[0.08] relative z-20 mt-auto"
+      >
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-5">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-8 items-center">
+
+            <div className="flex items-center justify-start sm:justify-center gap-3.5">
+              <div className="w-9 h-9 rounded-xl bg-turquesa/10 text-turquesa flex items-center justify-center shrink-0 border border-turquesa/20 shadow-sm shadow-turquesa/10">
+                <Sliders className="w-4.5 h-4.5 text-turquesa" />
+              </div>
+              <div className="min-w-0">
+                <div className="text-sm font-bold text-white leading-tight">A medida</div>
+                <div className="text-xs text-slate-400 leading-tight mt-0.5">Soluciones 100% personalizadas</div>
+              </div>
+            </div>
+
+            <div className="flex items-center justify-start sm:justify-center gap-3.5">
+              <div className="w-9 h-9 rounded-xl bg-turquesa/10 text-turquesa flex items-center justify-center shrink-0 border border-turquesa/20 shadow-sm shadow-turquesa/10">
+                <CheckCircle className="w-4.5 h-4.5 text-turquesa" />
+              </div>
+              <div className="min-w-0">
+                <div className="text-sm font-bold text-white leading-tight">Escalables</div>
+                <div className="text-xs text-slate-400 leading-tight mt-0.5">Pensadas para crecer contigo</div>
+              </div>
+            </div>
+
+            <div className="flex items-center justify-start sm:justify-center gap-3.5">
+              <div className="w-9 h-9 rounded-xl bg-turquesa/10 text-turquesa flex items-center justify-center shrink-0 border border-turquesa/20 shadow-sm shadow-turquesa/10">
+                <Shield className="w-4.5 h-4.5 text-turquesa" />
+              </div>
+              <div className="min-w-0">
+                <div className="text-sm font-bold text-white leading-tight">Confiables</div>
+                <div className="text-xs text-slate-400 leading-tight mt-0.5">Tecnologías modernas y seguras</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </motion.div>
     </section>
   );
 };

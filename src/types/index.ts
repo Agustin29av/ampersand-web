@@ -19,6 +19,7 @@ export interface ProjectItem {
   category: string;
   description: string;
   imageBg: string;
+  image?: string;
 }
 
 export interface PillarItem {

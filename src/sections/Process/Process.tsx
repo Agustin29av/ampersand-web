@@ -56,9 +56,6 @@ export const Process: React.FC = () => {
             <h2 className="text-2xl sm:text-3xl font-extrabold text-navy tracking-tight section-underline">
               NUESTRO PROCESO
             </h2>
-            <p className="mt-6 text-gray-600 text-sm sm:text-base max-w-lg mx-auto leading-relaxed">
-              Un enfoque estructurado para convertir tu idea en un producto digital de calidad.
-            </p>
           </div>
 
           {/* Steps Row */}

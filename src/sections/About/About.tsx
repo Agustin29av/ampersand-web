@@ -50,9 +50,6 @@ export const About: React.FC = () => {
           <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight section-underline">
             ¿POR QUÉ ELEGIRNOS?
           </h2>
-          <p className="mt-6 text-gray-400 text-sm sm:text-base max-w-xl mx-auto leading-relaxed">
-            No somos una fábrica de software. Somos un equipo que se compromete con cada proyecto como propio.
-          </p>
         </div>
 
         {/* 4 Pillars Grid */}

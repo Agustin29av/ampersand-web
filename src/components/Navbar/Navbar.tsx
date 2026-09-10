@@ -72,7 +72,7 @@ export const Navbar: React.FC = () => {
         </a>
 
         {/* Desktop Navigation Links — Centered */}
-        <nav className="hidden lg:flex items-center gap-9">
+        <nav className="hidden lg:flex items-center gap-9 absolute left-1/2 -translate-x-1/2">
           {navLinks.map((link) => (
             <a
               key={link.name}
@@ -94,16 +94,7 @@ export const Navbar: React.FC = () => {
           ))}
         </nav>
 
-        {/* CTA Button — Right */}
-        <div className="hidden lg:flex items-center">
-          <a
-            href="#contacto"
-            className="inline-flex items-center gap-2.5 bg-turquesa hover:bg-turquesa-dark text-white text-sm font-semibold px-6 py-2.5 rounded-full transition-all duration-200 hover:shadow-lg hover:shadow-turquesa/25 hover:-translate-y-0.5 shadow-md"
-          >
-            <span>Hablemos</span>
-            <ArrowRight className="w-4 h-4" />
-          </a>
-        </div>
+
 
         {/* Mobile menu button */}
         <button

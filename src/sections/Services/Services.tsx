@@ -70,9 +70,6 @@ export const Services: React.FC = () => {
           <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight section-underline">
             ¿QUÉ HACEMOS?
           </h2>
-          <p className="mt-6 text-slate-400 text-sm sm:text-base max-w-xl mx-auto leading-relaxed">
-            Diseñamos y construimos soluciones digitales que resuelven problemas reales y generan valor para tu negocio.
-          </p>
         </div>
 
         {/* Services Grid — Slate Gray High-Contrast Cards */}

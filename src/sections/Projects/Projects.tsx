@@ -39,9 +39,6 @@ export const Projects: React.FC = () => {
           <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight section-underline">
             PROYECTOS DESTACADOS
           </h2>
-          <p className="mt-6 text-slate-400 text-sm sm:text-base max-w-xl mx-auto leading-relaxed">
-            Casos reales donde transformamos ideas en productos digitales funcionales y escalables.
-          </p>
         </div>
 
         {/* Projects Grid */}

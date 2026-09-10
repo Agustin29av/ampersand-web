@@ -1,13 +1,13 @@
 import React from 'react';
-import { ArrowRight, Sliders, Shield, CheckCircle } from 'lucide-react';
+import { ArrowRight, Sliders, Shield, CheckCircle, Code2, Target } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Button } from '../../components/Button/Button';
 
 export const Hero: React.FC = () => {
   return (
-    <section className="relative min-h-[calc(100vh-1px)] lg:min-h-screen flex flex-col justify-between pt-20 lg:pt-22 bg-white overflow-hidden">
+    <section className="relative h-screen flex flex-col justify-between pt-20 lg:pt-22 bg-white overflow-hidden">
       {/* 2-column flex container: Centered Vertically */}
-      <div className="w-full flex-grow flex flex-col lg:flex-row items-center justify-between my-auto py-4 lg:py-6">
+      <div className="w-full flex-grow flex flex-col lg:flex-row items-center justify-between my-auto py-2 lg:py-3">
 
         {/* Left Column: Aligned with page container padding */}
         <motion.div
@@ -21,7 +21,7 @@ export const Hero: React.FC = () => {
             <span className="block sm:whitespace-nowrap">Transformamos ideas en</span>
             <span className="block sm:whitespace-nowrap">soluciones tecnológicas</span>
             <span className="block">
-              que <span className="text-turquesa">impulsan tu negocio.</span>
+              que <span className="text-turquesa italic">impulsan tu negocio.</span>
             </span>
           </h1>
 

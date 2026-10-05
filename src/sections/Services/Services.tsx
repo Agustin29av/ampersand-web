@@ -1,109 +1,94 @@
-import React from 'react';
-import { Smartphone, Cloud, TrendingUp } from 'lucide-react';
-import type { ServiceItem } from '../../types';
+import type { ReactNode } from 'react';
+import { Reveal } from '../../components/ui/Reveal';
+import { Accent, SectionHeading } from '../../components/ui/SectionHeading';
+import { SpotlightCard } from '../../components/ui/SpotlightCard';
+import { services } from '../../data/site';
+import type { Service } from '../../types';
+import { CloudVisual, CodeVisual, FlowVisual, PhoneVisual } from './ServiceVisuals';
 
-export const Services: React.FC = () => {
-  const services: ServiceItem[] = [
-    {
-      id: 'web',
-      titleLine1: 'DESARROLLO',
-      titleLine2: 'A MEDIDA',
-      description: 'Sistemas y aplicaciones web adaptadas a los procesos de tu negocio.',
-      iconName: 'Code'
-    },
-    {
-      id: 'mobile',
-      titleLine1: 'APLICACIONES',
-      titleLine2: 'MÓVILES',
-      description: 'Apps nativas o híbridas pensadas para brindar la mejor experiencia.',
-      iconName: 'Smartphone'
-    },
-    {
-      id: 'cloud',
-      titleLine1: 'SOLUCIONES',
-      titleLine2: 'EN LA NUBE',
-      description: 'Infraestructura moderna, escalable y segura en la nube.',
-      iconName: 'Cloud'
-    },
-    {
-      id: 'automation',
-      titleLine1: 'AUTOMATIZACIÓN',
-      titleLine2: 'E INTEGRACIONES',
-      description: 'Optimizamos procesos e integramos tus herramientas.',
-      iconName: 'TrendingUp'
-    }
-  ];
+const visuals: Record<Service['id'], ReactNode> = {
+  web: <CodeVisual />,
+  mobile: <PhoneVisual />,
+  cloud: <CloudVisual />,
+  automation: <FlowVisual />,
+};
 
-  const renderIcon = (iconName: string) => {
-    switch (iconName) {
-      case 'Code':
-        return (
-          <div className="w-11 h-8 rounded-lg border-2 border-turquesa flex items-center justify-center font-mono font-bold text-turquesa text-xs tracking-tighter shadow-sm shadow-turquesa/10">
-            {'</>'}
-          </div>
-        );
-      case 'Smartphone':
-        return <Smartphone className="w-8 h-8 text-turquesa stroke-[1.75]" />;
-      case 'Cloud':
-        return <Cloud className="w-9 h-9 text-turquesa stroke-[1.75]" />;
-      case 'TrendingUp':
-        return (
-          <div className="relative flex items-center justify-center">
-            <TrendingUp className="w-8 h-8 text-turquesa stroke-[1.75]" />
-          </div>
-        );
-      default:
-        return <Smartphone className="w-8 h-8 text-turquesa" />;
-    }
-  };
+// Ubicación de cada tarjeta en la grilla bento (escritorio).
+const placement: Record<Service['id'], string> = {
+  web: 'lg:col-span-2',
+  mobile: 'lg:row-span-2',
+  cloud: '',
+  automation: '',
+};
 
+function ServiceText({ service, index }: { service: Service; index: number }) {
   return (
-    <section id="servicios" className="py-24 bg-[#001133] relative overflow-hidden">
-      {/* Subtle ambient lighting */}
-      <div className="absolute top-0 right-10 w-96 h-96 bg-turquesa/5 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-0 left-10 w-80 h-80 bg-primary/5 rounded-full blur-3xl pointer-events-none" />
+    <div>
+      <span className="text-xs font-bold text-turquesa">0{index + 1}</span>
+      <h3 className="mt-2 text-xl font-bold tracking-tight text-navy sm:text-2xl">{service.title}</h3>
+      <p className="mt-3 max-w-md text-[15px] leading-relaxed text-slate-600">{service.description}</p>
+      <ul className="mt-5 flex flex-wrap gap-2">
+        {service.tags.map((tag) => (
+          <li key={tag} className="rounded-full border border-slate-200 bg-white px-3 py-1 text-xs font-medium text-slate-600">
+            {tag}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-
-        {/* Section Header */}
-        <div className="text-center mb-16">
-          <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight section-underline">
-            ¿QUÉ HACEMOS?
-          </h2>
+function ServiceCard({ service, index }: { service: Service; index: number }) {
+  if (service.id === 'web') {
+    return (
+      <div className="flex h-full flex-col gap-8 p-6 sm:p-8 md:flex-row md:items-center">
+        <div className="md:w-[44%]">
+          <ServiceText service={service} index={index} />
         </div>
+        <div className="h-64 md:flex-1">{visuals.web}</div>
+      </div>
+    );
+  }
+  if (service.id === 'mobile') {
+    return (
+      <div className="flex h-full flex-col gap-6 p-6 pb-0 sm:p-8 sm:pb-0">
+        <ServiceText service={service} index={index} />
+        <div className="mt-auto h-72 lg:h-[24rem]">{visuals.mobile}</div>
+      </div>
+    );
+  }
+  return (
+    <div className="flex h-full flex-col justify-between gap-8 p-6 sm:p-8">
+      <div className="h-36">{visuals[service.id]}</div>
+      <ServiceText service={service} index={index} />
+    </div>
+  );
+}
 
-        {/* Services Grid — Slate Gray High-Contrast Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
-          {services.map((service) => (
-            <div
-              key={service.id}
-              className="bg-[#e2e8f0] rounded-3xl p-6 sm:p-7 text-center border border-slate-300/80 shadow-[0_15px_35px_rgba(0,0,0,0.3)] hover:shadow-[0_20px_45px_rgba(2,194,181,0.2)] hover:border-turquesa hover:-translate-y-1.5 transition-all duration-300 group flex flex-col justify-between"
-            >
-              <div>
-                {/* Icon Container */}
-                <div className="w-14 h-14 rounded-2xl bg-white shadow-md shadow-slate-300/60 border border-slate-200/80 flex items-center justify-center mx-auto mb-5 group-hover:scale-110 group-hover:border-turquesa transition-all duration-300">
-                  {renderIcon(service.iconName)}
-                </div>
+export function Services() {
+  return (
+    <section id="servicios" className="bg-white py-24 sm:py-32">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <SectionHeading
+          eyebrow="¿Qué hacemos?"
+          title={
+            <>
+              Todo lo que tu negocio necesita, <Accent>en un solo equipo.</Accent>
+            </>
+          }
+          description="Diseño, desarrollo, infraestructura y automatización con un mismo equipo responsable de punta a punta."
+        />
 
-                {/* Title — Two Lines */}
-                <h3 className="text-xs sm:text-sm font-extrabold leading-tight tracking-wide">
-                  <span className="block text-navy mb-0.5">{service.titleLine1}</span>
-                  <span className="block text-turquesa">{service.titleLine2}</span>
-                </h3>
-
-                {/* Short Turquesa Accent Bar under Title */}
-                <div className="w-8 h-0.5 bg-turquesa mx-auto mt-2.5 mb-3.5 rounded-full group-hover:w-12 transition-all duration-300" />
-
-                {/* Description */}
-                <p className="text-xs text-gray-600 leading-relaxed max-w-[210px] mx-auto font-normal">
-                  {service.description}
-                </p>
-              </div>
-            </div>
+        <div className="mt-14 grid grid-cols-1 gap-5 lg:grid-cols-3">
+          {services.map((service, i) => (
+            <Reveal key={service.id} delay={i * 0.08} className={placement[service.id]}>
+              <SpotlightCard>
+                <ServiceCard service={service} index={i} />
+              </SpotlightCard>
+            </Reveal>
           ))}
         </div>
-
       </div>
     </section>
   );
-};
+}

@@ -1,38 +1,27 @@
-export interface ServiceItem {
-  id: string;
-  titleLine1: string;
-  titleLine2: string;
+export interface Service {
+  id: 'web' | 'mobile' | 'cloud' | 'automation';
+  title: string;
   description: string;
-  iconName: string;
+  tags: string[];
 }
 
 export interface ProcessStep {
   number: string;
   title: string;
   description: string;
-  iconName: string;
+  deliverables: string[];
 }
 
-export interface ProjectItem {
-  id: string;
+export interface Project {
+  id: 'gestion' | 'logistica' | 'dashboard';
   title: string;
   category: string;
   description: string;
-  imageBg: string;
-  image?: string;
+  tags: string[];
 }
 
-export interface PillarItem {
+export interface Pillar {
   title: string;
   description: string;
-  iconName: string;
-}
-
-export interface ContactFormData {
-  name: string;
-  email: string;
-  company?: string;
-  serviceType: string;
-  budget?: string;
-  message: string;
+  icon: 'users' | 'eye' | 'calendar' | 'handshake';
 }

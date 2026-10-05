@@ -1,11 +1,11 @@
 import React from 'react';
-import { ArrowRight, Sliders, Shield, CheckCircle, Code2, Target } from 'lucide-react';
+import { ArrowRight, Check } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { Button } from '../../components/Button/Button';
+import { FeatureStrip } from './FeatureStrip';
 
 export const Hero: React.FC = () => {
   return (
-    <section className="relative h-screen flex flex-col justify-between pt-20 lg:pt-22 bg-white overflow-hidden">
+    <section className="relative min-h-screen lg:h-screen flex flex-col justify-between pt-20 lg:pt-22 bg-[#fafbfd] overflow-hidden">
       {/* 2-column flex container: Centered Vertically */}
       <div className="w-full flex-grow flex flex-col lg:flex-row items-center justify-between my-auto py-2 lg:py-3">
 
@@ -18,9 +18,9 @@ export const Hero: React.FC = () => {
         >
           {/* Headline — 3 Clean Balanced Lines */}
           <h1 className="text-3xl sm:text-4xl lg:text-[2.65rem] xl:text-[3.1rem] font-extrabold text-navy tracking-tight leading-[1.18]">
-            <span className="block sm:whitespace-nowrap">Transformamos ideas en</span>
-            <span className="block sm:whitespace-nowrap">soluciones tecnológicas</span>
-            <span className="block">
+            <span className="sm:block sm:whitespace-nowrap">Transformamos ideas en</span>{' '}
+            <span className="sm:block sm:whitespace-nowrap">soluciones tecnológicas</span>{' '}
+            <span className="sm:block">
               que <span className="text-turquesa italic">impulsan tu negocio.</span>
             </span>
           </h1>
@@ -30,19 +30,35 @@ export const Hero: React.FC = () => {
             Desarrollamos productos digitales robustos, escalables y fáciles de usar.
           </p>
 
-          {/* CTA Buttons */}
-          <div className="flex flex-wrap items-center gap-3.5 pt-1">
-            <a href="#contacto">
-              <Button variant="primary" size="lg" icon={<ArrowRight className="w-4 h-4" />}>
-                Hablemos de tu proyecto
-              </Button>
+          {/* CTA: una acción principal y un link secundario discreto */}
+          <div className="flex flex-wrap items-center gap-x-8 gap-y-4 pt-1">
+            <a
+              href="#contacto"
+              className="group inline-flex items-center justify-center gap-2.5 rounded-full bg-navy px-7 py-3.5 text-base font-semibold text-white shadow-md transition-all duration-200 hover:-translate-y-0.5 hover:bg-navy-light hover:shadow-lg"
+            >
+              Hablemos de tu proyecto
+              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
             </a>
-            <a href="#proyectos">
-              <Button variant="outline" size="lg" icon={<ArrowRight className="w-4 h-4" />}>
+            <a href="#proyectos" className="group inline-flex items-center gap-2 text-base font-semibold text-navy">
+              <span className="relative">
                 Ver proyectos
-              </Button>
+                <span className="absolute -bottom-0.5 left-0 h-px w-full origin-left scale-x-0 bg-navy transition-transform duration-300 group-hover:scale-x-100" />
+              </span>
+              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
             </a>
           </div>
+
+          {/* Línea de confianza */}
+          <ul className="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-slate-500">
+            <li className="flex items-center gap-1.5">
+              <Check className="w-4 h-4 text-turquesa" strokeWidth={2.5} />
+              Respuesta en menos de 24 hs
+            </li>
+            <li className="flex items-center gap-1.5">
+              <Check className="w-4 h-4 text-turquesa" strokeWidth={2.5} />
+              Sin compromiso
+            </li>
+          </ul>
         </motion.div>
 
         {/* Right Column: Positioned comfortably below header */}
@@ -58,7 +74,7 @@ export const Hero: React.FC = () => {
             <img
               src="/hero-composition.jpg"
               alt="Ampersand Development Workstation"
-              className="w-[110%] max-w-none h-auto object-cover object-right pointer-events-none select-none -mr-[2%] -ml-[5%]"
+              className="w-[110%] max-w-none h-auto object-cover object-right pointer-events-none select-none -mr-[2%] -ml-[5%] [mask-image:linear-gradient(to_bottom,#000_88%,transparent)]"
             />
 
           </div>
@@ -66,49 +82,8 @@ export const Hero: React.FC = () => {
 
       </div>
 
-      {/* Full-width Features Divider Strip Pinned Flush to Bottom Viewport Edge */}
-      <motion.div
-        initial={{ opacity: 0, y: 15 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, ease: 'easeOut', delay: 0.3 }}
-        className="w-full bg-[#000e2e] border-t border-white/10 border-b border-white/[0.08] relative z-20 mt-auto"
-      >
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-5">
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-8 items-center">
-
-            <div className="flex items-center justify-start sm:justify-center gap-3.5">
-              <div className="w-9 h-9 rounded-xl bg-turquesa/10 text-turquesa flex items-center justify-center shrink-0 border border-turquesa/20 shadow-sm shadow-turquesa/10">
-                <Sliders className="w-4.5 h-4.5 text-turquesa" />
-              </div>
-              <div className="min-w-0">
-                <div className="text-sm font-bold text-white leading-tight">A medida</div>
-                <div className="text-xs text-slate-400 leading-tight mt-0.5">Soluciones 100% personalizadas</div>
-              </div>
-            </div>
-
-            <div className="flex items-center justify-start sm:justify-center gap-3.5">
-              <div className="w-9 h-9 rounded-xl bg-turquesa/10 text-turquesa flex items-center justify-center shrink-0 border border-turquesa/20 shadow-sm shadow-turquesa/10">
-                <CheckCircle className="w-4.5 h-4.5 text-turquesa" />
-              </div>
-              <div className="min-w-0">
-                <div className="text-sm font-bold text-white leading-tight">Escalables</div>
-                <div className="text-xs text-slate-400 leading-tight mt-0.5">Pensadas para crecer contigo</div>
-              </div>
-            </div>
-
-            <div className="flex items-center justify-start sm:justify-center gap-3.5">
-              <div className="w-9 h-9 rounded-xl bg-turquesa/10 text-turquesa flex items-center justify-center shrink-0 border border-turquesa/20 shadow-sm shadow-turquesa/10">
-                <Shield className="w-4.5 h-4.5 text-turquesa" />
-              </div>
-              <div className="min-w-0">
-                <div className="text-sm font-bold text-white leading-tight">Confiables</div>
-                <div className="text-xs text-slate-400 leading-tight mt-0.5">Tecnologías modernas y seguras</div>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </motion.div>
+      {/* Full-width Features Strip + tech marquee, pinned to the bottom of the viewport */}
+      <FeatureStrip />
     </section>
   );
 };

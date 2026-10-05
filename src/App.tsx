@@ -4,13 +4,17 @@ import { Services } from './sections/Services/Services';
 import { Process } from './sections/Process/Process';
 import { Projects } from './sections/Projects/Projects';
 import { About } from './sections/About/About';
-import { CtaBanner } from './sections/CtaBanner/CtaBanner';
+import { Contact } from './sections/Contact/Contact';
+import { SmoothScroll } from './components/ui/SmoothScroll';
+import { MotionConfig } from 'framer-motion';
 import { Mail, Phone, MapPin, Globe } from 'lucide-react';
 
 export function App() {
   const currentYear = new Date().getFullYear();
 
   return (
+    <MotionConfig reducedMotion="user">
+    <SmoothScroll />
     <div className="min-h-screen bg-white flex flex-col font-sans selection:bg-turquesa selection:text-white">
       {/* Sticky Navbar */}
       <Navbar />
@@ -22,7 +26,7 @@ export function App() {
         <Process />
         <Projects />
         <About />
-        <CtaBanner />
+        <Contact />
       </main>
 
       {/* Footer */}
@@ -141,6 +145,7 @@ export function App() {
         </div>
       </footer>
     </div>
+    </MotionConfig>
   );
 }
 

@@ -1,0 +1,5 @@
+// Curva de salida suave usada en todas las animaciones del sitio.
+export const easeOut = [0.22, 1, 0.36, 1] as const;
+
+export const prefersReducedMotion = () =>
+  typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;

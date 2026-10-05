@@ -1,273 +1,228 @@
-import React, { useState } from 'react';
-import { Mail, Send, Check, Copy, MessageSquare, MapPin, Clock, ArrowRight } from 'lucide-react';
-import { Button } from '../../components/Button/Button';
-import { Badge } from '../../components/Badge/Badge';
-import type { ContactFormData } from '../../types';
+import { useState, type FormEvent } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
+import { ArrowRight, ArrowUpRight, Check, Clock, Copy, Mail, MapPin, MessageCircle } from 'lucide-react';
+import { Reveal } from '../../components/ui/Reveal';
+import { Accent, Eyebrow } from '../../components/ui/SectionHeading';
+import { contact } from '../../data/site';
+import { easeOut } from '../../lib/motion';
 
-export const Contact: React.FC = () => {
-  const [copiedMail, setCopiedMail] = useState(false);
-  const [formSubmitted, setFormSubmitted] = useState(false);
-  const [formData, setFormData] = useState<ContactFormData>({
-    name: '',
-    email: '',
-    company: '',
-    serviceType: 'Web',
-    message: ''
-  });
+const serviceOptions = ['Desarrollo web', 'App móvil', 'Cloud', 'Automatización', 'Otro'];
 
-  const companyEmail = 'contacto@ampersand.dev';
+const inputClass =
+  'mt-2 w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-[15px] font-normal text-navy placeholder-slate-400 transition-colors outline-none focus:border-turquesa focus:ring-2 focus:ring-turquesa/20';
+const labelClass = 'block text-sm font-semibold text-navy';
 
-  const handleCopyEmail = () => {
-    navigator.clipboard.writeText(companyEmail);
-    setCopiedMail(true);
-    setTimeout(() => setCopiedMail(false), 2500);
+export function Contact() {
+  const [services, setServices] = useState<string[]>([]);
+  const [copied, setCopied] = useState(false);
+  const [sent, setSent] = useState(false);
+
+  const toggleService = (s: string) =>
+    setServices((prev) => (prev.includes(s) ? prev.filter((x) => x !== s) : [...prev, s]));
+
+  const copyEmail = async () => {
+    await navigator.clipboard.writeText(contact.email);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  // Sin backend: arma el mail con la consulta y abre el cliente de correo del visitante.
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!formData.name || !formData.email || !formData.message) return;
-
-    // Simulate sending message
-    setFormSubmitted(true);
-    setTimeout(() => {
-      setFormData({
-        name: '',
-        email: '',
-        company: '',
-        serviceType: 'Web',
-        message: ''
-      });
-    }, 500);
+    const data = new FormData(e.currentTarget);
+    const name = String(data.get('name') ?? '');
+    const lines = [
+      `Nombre: ${name}`,
+      `Email: ${data.get('email')}`,
+      data.get('company') ? `Empresa: ${data.get('company')}` : null,
+      services.length ? `Servicios: ${services.join(', ')}` : null,
+      '',
+      String(data.get('message') ?? ''),
+    ].filter((line) => line !== null);
+    window.location.href = `mailto:${contact.email}?subject=${encodeURIComponent(
+      `Nuevo proyecto - ${name}`,
+    )}&body=${encodeURIComponent(lines.join('\n'))}`;
+    setSent(true);
   };
 
   return (
-    <section id="contacto" className="py-24 bg-slate-900 text-white relative overflow-hidden">
-      {/* Background Decorators */}
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-teal-500/10 blur-[150px] pointer-events-none rounded-full" />
-      <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-cyan-500/10 blur-[150px] pointer-events-none rounded-full" />
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-
-        {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto space-y-4 mb-16">
-          <Badge variant="outline" className="text-teal-400 border-teal-500/40 bg-teal-950/40">
-            HABLEMOS DE TU PROYECTO
-          </Badge>
-          <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight">
-            ¿Tenés una idea? <span className="text-gradient-dark">Hablemos.</span>
+    <section id="contacto" className="bg-[#f5f7fa] py-24 sm:py-32">
+      <div className="mx-auto grid max-w-7xl gap-14 px-4 sm:px-6 lg:grid-cols-12 lg:gap-16 lg:px-8">
+        <Reveal className="lg:col-span-5">
+          <Eyebrow>Contacto</Eyebrow>
+          <h2 className="mt-5 text-4xl leading-[1.1] font-extrabold tracking-tight text-navy sm:text-5xl">
+            ¿Tenés una idea? <Accent>Hablemos.</Accent>
           </h2>
-          <p className="text-slate-400 text-lg">
-            Escribinos por el formulario o contactanos directamente por email o WhatsApp. Estamos listos para comenzar.
+          <p className="mt-6 max-w-md text-base leading-relaxed text-slate-600 sm:text-[17px]">
+            Contanos qué necesitás y te respondemos con una propuesta clara, sin compromiso. Llevemos tu idea al
+            siguiente nivel.
           </p>
-        </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-
-          {/* Left Column: Direct Contact Info & Mail */}
-          <div className="lg:col-span-5 space-y-6">
-
-            {/* Direct Email Banner Card */}
-            <div className="bg-slate-800/90 rounded-2xl p-6 border border-slate-700/80 shadow-xl space-y-4 relative overflow-hidden">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-teal-500/20 text-teal-400 border border-teal-500/30 flex items-center justify-center">
-                  <Mail className="w-5 h-5" />
-                </div>
-                <div>
-                  <div className="text-xs text-slate-400 font-semibold uppercase">Email Directo</div>
-                  <div className="text-base font-bold text-white font-mono">{companyEmail}</div>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-3 pt-2">
-                <a
-                  href={`mailto:${companyEmail}?subject=Consulta%20Proyecto%20Ampersand`}
-                  className="flex-1"
-                >
-                  <Button size="sm" variant="primary" fullWidth icon={<Mail className="w-4 h-4" />}>
-                    Enviar Mail
-                  </Button>
-                </a>
-                <button
-                  onClick={handleCopyEmail}
-                  className="px-3.5 py-2 rounded-xl bg-slate-700 hover:bg-slate-600 text-slate-200 hover:text-white border border-slate-600 text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer"
-                  title="Copiar email"
-                >
-                  {copiedMail ? (
-                    <>
-                      <Check className="w-4 h-4 text-emerald-400" />
-                      <span className="text-emerald-400">Copiado</span>
-                    </>
-                  ) : (
-                    <>
-                      <Copy className="w-4 h-4" />
-                      <span>Copiar</span>
-                    </>
-                  )}
-                </button>
-              </div>
-            </div>
-
-            {/* WhatsApp Card */}
-            <div className="bg-slate-800/90 rounded-2xl p-6 border border-slate-700/80 shadow-xl space-y-3">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 flex items-center justify-center">
-                  <MessageSquare className="w-5 h-5" />
-                </div>
-                <div>
-                  <div className="text-xs text-slate-400 font-semibold uppercase">Atención Inmediata</div>
-                  <div className="text-sm font-bold text-white">Chat directo por WhatsApp</div>
-                </div>
-              </div>
-              <p className="text-xs text-slate-400 leading-relaxed">
-                ¿Preferís una respuesta rápida? Escribinos directamente al equipo.
-              </p>
-              <a
-                href="https://wa.me/?text=Hola%20Ampersand,%20tengo%20una%20consulta%20para%20un%20proyecto"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 text-xs font-semibold text-emerald-400 hover:text-emerald-300 pt-1"
-              >
-                <span>Abrir chat de WhatsApp</span>
-                <ArrowRight className="w-3.5 h-3.5" />
+          <div className="mt-10 space-y-3">
+            <div className="flex items-center justify-between gap-3 rounded-2xl border border-slate-200 bg-white p-4">
+              <a href={`mailto:${contact.email}`} className="flex min-w-0 items-center gap-4">
+                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-turquesa/10 text-turquesa">
+                  <Mail className="h-5 w-5" />
+                </span>
+                <span className="min-w-0">
+                  <span className="block text-xs text-slate-500">Escribinos</span>
+                  <span className="block truncate font-semibold text-navy">{contact.email}</span>
+                </span>
               </a>
+              <button
+                type="button"
+                onClick={copyEmail}
+                className="flex h-9 shrink-0 items-center gap-1.5 rounded-full border border-slate-200 px-3.5 text-xs font-medium text-slate-600 transition-colors hover:border-turquesa hover:text-turquesa"
+              >
+                {copied ? <Check className="h-3.5 w-3.5" /> : <Copy className="h-3.5 w-3.5" />}
+                {copied ? 'Copiado' : 'Copiar'}
+              </button>
             </div>
 
-            {/* Additional Info Cards */}
-            <div className="space-y-3 text-xs text-slate-400 pt-2">
-              <div className="flex items-center gap-3 bg-slate-800/40 p-3.5 rounded-xl border border-slate-800">
-                <Clock className="w-4 h-4 text-teal-400 shrink-0" />
-                <span>Respuesta garantizada en menos de 24 hs hábiles.</span>
-              </div>
-              <div className="flex items-center gap-3 bg-slate-800/40 p-3.5 rounded-xl border border-slate-800">
-                <MapPin className="w-4 h-4 text-teal-400 shrink-0" />
-                <span>Buenos Aires, Argentina — Proyectos globales.</span>
-              </div>
-            </div>
-
+            <a
+              href={`https://wa.me/${contact.whatsapp}?text=${encodeURIComponent('Hola Ampersand, tengo una consulta sobre un proyecto.')}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group flex items-center justify-between gap-3 rounded-2xl border border-slate-200 bg-white p-4 transition-all duration-300 hover:border-turquesa/40 hover:shadow-[0_16px_32px_-20px_rgba(0,23,72,0.3)]"
+            >
+              <span className="flex items-center gap-4">
+                <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-emerald-50 text-emerald-600">
+                  <MessageCircle className="h-5 w-5" />
+                </span>
+                <span>
+                  <span className="block text-xs text-slate-500">Respuesta rápida</span>
+                  <span className="block font-semibold text-navy">Escribinos por WhatsApp</span>
+                </span>
+              </span>
+              <ArrowUpRight className="h-5 w-5 text-slate-400 transition-all duration-300 group-hover:rotate-45 group-hover:text-turquesa" />
+            </a>
           </div>
 
-          {/* Right Column: Contact Form */}
-          <div className="lg:col-span-7">
-            <div className="bg-slate-800/90 rounded-2xl p-6 sm:p-8 border border-slate-700/80 shadow-2xl">
+          <div className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-sm text-slate-500">
+            <span className="flex items-center gap-2">
+              <Clock className="h-4 w-4 text-turquesa" /> Respuesta en menos de 24 hs hábiles
+            </span>
+            <span className="flex items-center gap-2">
+              <MapPin className="h-4 w-4 text-turquesa" /> {contact.location}
+            </span>
+          </div>
+        </Reveal>
 
-              {formSubmitted ? (
-                <div className="py-12 text-center space-y-4">
-                  <div className="w-16 h-16 bg-teal-500/20 text-teal-400 border border-teal-500/40 rounded-full flex items-center justify-center mx-auto">
-                    <Check className="w-8 h-8" />
-                  </div>
-                  <h3 className="text-2xl font-bold text-white">¡Mensaje Recibido!</h3>
-                  <p className="text-slate-300 text-sm max-w-md mx-auto">
-                    Gracias por ponerte en contacto con Ampersand. Revisaremos los detalles de tu consulta y te responderemos a la brevedad.
+        <Reveal delay={0.12} className="lg:col-span-7">
+          <div className="rounded-3xl border border-slate-200/80 bg-white p-6 shadow-[0_32px_64px_-32px_rgba(0,23,72,0.25)] sm:p-10">
+            <AnimatePresence mode="wait">
+              {sent ? (
+                <motion.div
+                  key="sent"
+                  initial={{ opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, ease: easeOut }}
+                  className="flex min-h-[480px] flex-col items-center justify-center text-center"
+                >
+                  <motion.span
+                    initial={{ scale: 0.6, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    transition={{ type: 'spring', stiffness: 260, damping: 18, delay: 0.1 }}
+                    className="flex h-16 w-16 items-center justify-center rounded-full bg-turquesa text-white"
+                  >
+                    <Check className="h-8 w-8" strokeWidth={2.5} />
+                  </motion.span>
+                  <h3 className="mt-6 text-2xl font-bold tracking-tight text-navy">¡Gracias por escribirnos!</h3>
+                  <p className="mt-3 max-w-sm text-slate-600">
+                    Abrimos tu correo con la consulta lista para enviar. Si no se abrió, escribinos a{' '}
+                    <a href={`mailto:${contact.email}`} className="font-semibold text-navy underline underline-offset-4">
+                      {contact.email}
+                    </a>
+                    .
                   </p>
                   <button
-                    onClick={() => setFormSubmitted(false)}
-                    className="inline-block text-xs font-semibold text-teal-400 hover:text-teal-300 pt-4 underline underline-offset-4 cursor-pointer"
+                    type="button"
+                    onClick={() => setSent(false)}
+                    className="mt-8 text-sm font-semibold text-turquesa underline-offset-4 hover:underline"
                   >
-                    Enviar otro mensaje
+                    Volver al formulario
                   </button>
-                </div>
+                </motion.div>
               ) : (
-                <form onSubmit={handleSubmit} className="space-y-5">
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                    {/* Name */}
-                    <div>
-                      <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">
-                        Nombre completo *
-                      </label>
+                <motion.form
+                  key="form"
+                  onSubmit={handleSubmit}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  className="space-y-6"
+                >
+                  <div className="grid gap-6 sm:grid-cols-2">
+                    <label className={labelClass}>
+                      Nombre
+                      <input name="name" required autoComplete="name" placeholder="Tu nombre" className={inputClass} />
+                    </label>
+                    <label className={labelClass}>
+                      Email
                       <input
-                        type="text"
-                        required
-                        value={formData.name}
-                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                        placeholder="Ej. Juan Pérez"
-                        className="w-full bg-slate-900/90 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-teal-500 focus:ring-1 focus:ring-teal-500 transition-colors"
-                      />
-                    </div>
-
-                    {/* Email */}
-                    <div>
-                      <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">
-                        Email de contacto *
-                      </label>
-                      <input
+                        name="email"
                         type="email"
                         required
-                        value={formData.email}
-                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        placeholder="tuemail@empresa.com"
-                        className="w-full bg-slate-900/90 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-teal-500 focus:ring-1 focus:ring-teal-500 transition-colors"
+                        autoComplete="email"
+                        placeholder="tu@empresa.com"
+                        className={inputClass}
                       />
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                    {/* Company */}
-                    <div>
-                      <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">
-                        Empresa / Startup (Opcional)
-                      </label>
-                      <input
-                        type="text"
-                        value={formData.company}
-                        onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                        placeholder="Nombre de tu empresa"
-                        className="w-full bg-slate-900/90 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-teal-500 focus:ring-1 focus:ring-teal-500 transition-colors"
-                      />
-                    </div>
-
-                    {/* Service Type */}
-                    <div>
-                      <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">
-                        Tipo de Servicio
-                      </label>
-                      <select
-                        value={formData.serviceType}
-                        onChange={(e) => setFormData({ ...formData, serviceType: e.target.value })}
-                        className="w-full bg-slate-900/90 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-teal-500 focus:ring-1 focus:ring-teal-500 transition-colors"
-                      >
-                        <option value="Web">Desarrollo Web a Medida</option>
-                        <option value="Mobile">App Móvil (iOS / Android)</option>
-                        <option value="Cloud">Soluciones Cloud & DevOps</option>
-                        <option value="Automation">Automatizaciones e Integraciones</option>
-                        <option value="Otro">Otro / Consultoría General</option>
-                      </select>
-                    </div>
-                  </div>
-
-                  {/* Message */}
-                  <div>
-                    <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">
-                      Contanos sobre tu proyecto *
                     </label>
-                    <textarea
-                      required
-                      rows={4}
-                      value={formData.message}
-                      onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                      placeholder="Breve descripción del software que necesitas desarrollar, objetivos o plazos estimados..."
-                      className="w-full bg-slate-900/90 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-teal-500 focus:ring-1 focus:ring-teal-500 transition-colors resize-none"
-                    />
                   </div>
+                  <label className={labelClass}>
+                    Empresa <span className="font-normal text-slate-400">(opcional)</span>
+                    <input name="company" autoComplete="organization" placeholder="Nombre de tu empresa" className={inputClass} />
+                  </label>
 
-                  {/* Submit Button */}
-                  <Button
+                  <fieldset>
+                    <legend className={labelClass}>¿Qué necesitás?</legend>
+                    <div className="mt-3 flex flex-wrap gap-2">
+                      {serviceOptions.map((s) => {
+                        const selected = services.includes(s);
+                        return (
+                          <button
+                            key={s}
+                            type="button"
+                            aria-pressed={selected}
+                            onClick={() => toggleService(s)}
+                            className={`rounded-full border px-4 py-2 text-sm font-medium transition-all duration-200 ${
+                              selected
+                                ? 'border-turquesa bg-turquesa text-white'
+                                : 'border-slate-200 text-slate-600 hover:border-turquesa/60 hover:text-navy'
+                            }`}
+                          >
+                            {s}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </fieldset>
+
+                  <label className={labelClass}>
+                    Contanos sobre tu proyecto
+                    <textarea
+                      name="message"
+                      required
+                      rows={5}
+                      placeholder="Objetivos, plazos estimados, herramientas que ya usás…"
+                      className={`${inputClass} resize-none`}
+                    />
+                  </label>
+
+                  <button
                     type="submit"
-                    variant="primary"
-                    size="lg"
-                    fullWidth
-                    icon={<Send className="w-4 h-4" />}
+                    className="group flex h-13 w-full items-center justify-center gap-2 rounded-full bg-navy text-base font-semibold text-white shadow-md transition-all duration-200 hover:-translate-y-0.5 hover:bg-navy-light hover:shadow-lg"
                   >
-                    Enviar Consulta
-                  </Button>
-                </form>
+                    Enviar consulta
+                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  </button>
+                  <p className="text-center text-sm text-slate-500">Sin compromiso. Te respondemos en menos de 24 hs hábiles.</p>
+                </motion.form>
               )}
-
-            </div>
+            </AnimatePresence>
           </div>
-
-        </div>
-
+        </Reveal>
       </div>
     </section>
   );
-};
+}

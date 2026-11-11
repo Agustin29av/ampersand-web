@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Menu, X, ArrowRight } from 'lucide-react';
 import { easeOut } from '../../lib/motion';
+import { contact, whatsappUrl } from '../../data/site';
 
 const navLinks = [
   { name: 'Inicio', href: '#', id: 'inicio' },
@@ -22,6 +23,7 @@ export const Navbar: React.FC = () => {
 
       // Detect active section
       const sections = ['contacto', 'nosotros', 'proyectos', 'proceso', 'servicios'];
+      // El scroll ya no es suave: el header solo marca la sección activa.
       let current = 'inicio';
       for (const id of sections) {
         const el = document.getElementById(id);
@@ -69,11 +71,11 @@ export const Navbar: React.FC = () => {
               />
             </div>
             <div className="flex flex-col">
-              <span className="text-xl font-extrabold tracking-wider leading-none text-white transition-colors">
+              <span className="text-lg font-bold tracking-wide leading-none text-white transition-colors">
                 AMPERSAND
               </span>
-              <span className="text-[9.5px] font-bold tracking-widest text-turquesa uppercase mt-1">
-                DESARROLLO DE SOFTWARE A MEDIDA
+              <span className="text-[11px] font-medium text-turquesa mt-0.5">
+                Concepción del Uruguay
               </span>
             </div>
           </a>
@@ -105,10 +107,12 @@ export const Navbar: React.FC = () => {
 
           {/* Desktop CTA */}
           <a
-            href="#contacto"
+            href={whatsappUrl(contact.whatsappGreeting)}
+            target="_blank"
+            rel="noopener noreferrer"
             className="hidden lg:inline-flex items-center gap-2 shrink-0 bg-turquesa hover:bg-turquesa-dark text-white text-sm font-semibold px-5 py-2.5 rounded-full transition-all duration-200 hover:shadow-lg hover:shadow-turquesa/25 group"
           >
-            <span>Contactanos</span>
+            <span>Escribinos</span>
             <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
           </a>
 
@@ -160,11 +164,13 @@ export const Navbar: React.FC = () => {
                   className="pt-2 border-t border-white/10"
                 >
                   <a
-                    href="#contacto"
+                    href={whatsappUrl(contact.whatsappGreeting)}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     onClick={() => setMobileMenuOpen(false)}
                     className="flex items-center justify-center gap-2 w-full bg-turquesa hover:bg-turquesa-dark text-white text-sm font-semibold px-6 py-3.5 rounded-full transition-all shadow-md"
                   >
-                    <span>Hablemos de tu proyecto</span>
+                    <span>Escribinos por WhatsApp</span>
                     <ArrowRight className="w-4 h-4" />
                   </a>
                 </motion.div>

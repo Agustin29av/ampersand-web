@@ -1,5 +1,5 @@
 export interface Service {
-  id: 'web' | 'mobile' | 'cloud' | 'automation';
+  id: 'web' | 'sistemas' | 'mantenimiento';
   title: string;
   description: string;
   tags: string[];
@@ -13,11 +13,14 @@ export interface ProcessStep {
 }
 
 export interface Project {
-  id: 'gestion' | 'logistica' | 'dashboard';
+  id: 'tuautogestion' | 'gimnasio' | 'inmobiliaria';
   title: string;
   category: string;
   description: string;
   tags: string[];
+  href: string;
+  image: string;
+  imageAlt: string;
 }
 
 export interface Pillar {

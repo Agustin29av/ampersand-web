@@ -1,77 +1,25 @@
-# React + TypeScript + Vite
+# Sitio de Ampersand
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Página de Ampersand, estudio de software de Concepción del Uruguay (Entre Ríos). Una sola página con lo que hacemos, los proyectos reales y el contacto por WhatsApp.
 
-Currently, two official plugins are available:
+## Correr en local
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
-
-## React Compiler
-
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
-
-Note: This will impact Vite dev & build performances.
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```bash
+npm install
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+`npm run build` genera `dist/` (TypeScript + Vite). `npm run lint` corre ESLint.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Dónde se edita cada cosa
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+- **Textos, servicios, proceso, proyectos y contacto:** `src/data/site.ts`. El número de WhatsApp va en `contact.whatsapp` con código de país, sin `+` ni espacios (por ejemplo `5493442XXXXXX`).
+- **Capturas de los proyectos:** `public/proyectos/`. Son capturas reales de cada producto o demo; si cambia el producto, reemplazá la imagen.
+- **Secciones:** `src/sections/`. Cada una es un componente; el orden está en `src/App.tsx`.
+- **Colores y tipografía:** `src/index.css` (`@theme`). La fuente se carga en `index.html`.
 
-```
+## Decisiones
+
+- No hay formulario con backend: el contacto arma un mensaje y lo abre en WhatsApp, que es donde atendemos.
+- No hay animaciones al scrollear ni scroll suave: la página aparece entera y se lee de corrido. La única animación es la entrada de la portada.
+- Los proyectos son links reales a cosas que se pueden usar. No se muestran clientes sin su permiso.

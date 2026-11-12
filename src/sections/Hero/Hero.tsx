@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { ArrowRight, Check } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { AmpersandField } from '../../components/ui/AmpersandField';
-import { contact, siteCheck, whatsappUrl } from '../../data/site';
+import { siteCheck, whatsappUrl } from '../../data/site';
 import { easeOut } from '../../lib/motion';
 
 /** Portada: el gancho, una revisión gratis de la página como primer paso y la «&» en 3D. */
@@ -26,8 +26,8 @@ export function Hero() {
             Tu negocio anda. ¿Tu página también?
           </h1>
           <p className="mt-6 max-w-xl text-lg leading-relaxed text-slate-300">
-            Revisamos {siteCheck.reviewed} páginas de negocios de Entre Ríos y {siteCheck.broken} directamente no abren.
-            Hacemos páginas y sistemas que venden, y nos hacemos cargo de que sigan andando.
+            Revisamos {siteCheck.reviewed} páginas de negocios y {siteCheck.broken} directamente no abren. Hacemos páginas y
+            sistemas que venden, para negocios de cualquier lugar, y nos hacemos cargo de que sigan andando.
           </p>
 
           <form
@@ -77,7 +77,7 @@ export function Hero() {
             </li>
             <li className="flex items-center gap-1.5">
               <Check className="h-4 w-4 text-turquesa" strokeWidth={2.5} />
-              Somos de {contact.location.split(',')[0]}
+              Trabajamos a distancia, estés donde estés
             </li>
           </ul>
         </motion.div>

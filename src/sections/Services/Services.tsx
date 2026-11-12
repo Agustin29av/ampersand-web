@@ -24,7 +24,7 @@ export function Services() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
           title="Tres cosas, bien hechas."
-          description="No hacemos apps para la tienda ni infraestructura para empresas grandes. Hacemos lo que un negocio de acá necesita para vender y ordenarse."
+          description="No hacemos apps para la tienda ni infraestructura para empresas grandes. Hacemos lo que un negocio necesita para vender y ordenarse, esté donde esté."
         />
 
         <div className="mt-14 grid gap-10 lg:grid-cols-3 lg:gap-8">

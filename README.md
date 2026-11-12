@@ -1,6 +1,6 @@
 # Sitio de Ampersand
 
-Página de Ampersand, estudio de software de Concepción del Uruguay (Entre Ríos). Una sola página con lo que hacemos, los proyectos reales y el contacto por WhatsApp.
+Página de Ampersand, estudio de software de Concepción del Uruguay (Entre Ríos) que trabaja con negocios de cualquier lugar. Una sola página con lo que hacemos, los proyectos reales y el contacto por WhatsApp.
 
 ## Correr en local
 

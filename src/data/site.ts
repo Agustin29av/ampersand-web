@@ -67,7 +67,7 @@ export const processSteps: ProcessStep[] = [
   {
     number: '1',
     title: 'Nos juntamos',
-    description: 'Por llamada o en tu local. Vemos cómo trabajás hoy y qué te hace perder tiempo o clientes.',
+    description: 'Por videollamada, o en persona si estás cerca. Vemos cómo trabajás hoy y qué te hace perder tiempo o clientes.',
     deliverables: ['Charla de 30 minutos', 'Sin compromiso'],
   },
   {
@@ -144,8 +144,8 @@ export const pillars: Pillar[] = [
     icon: 'handshake',
   },
   {
-    title: 'Somos de acá',
-    description: 'Estamos en Concepción del Uruguay. Si hace falta, pasamos por tu local.',
+    title: 'Estés donde estés',
+    description: 'Trabajamos a distancia con negocios de cualquier lugar. Y si estás cerca de Concepción del Uruguay, pasamos por tu local.',
     icon: 'calendar',
   },
 ];

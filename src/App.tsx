@@ -59,7 +59,7 @@ export function App() {
               </div>
 
               <p className="text-xs text-gray-400 leading-relaxed max-w-sm">
-                Páginas y sistemas para negocios de Entre Ríos. Hechos por gente que atiende el teléfono.
+                Páginas y sistemas para negocios de cualquier lugar. Hechos por gente que atiende el teléfono.
               </p>
 
               {/* Redes */}
@@ -113,7 +113,7 @@ export function App() {
             {/* Column 4 */}
             <div className="lg:col-span-3 lg:pl-8 flex items-center justify-start">
               <p className="text-base leading-snug text-gray-300">
-                Si tenés un negocio en la zona y algo te hace perder tiempo, escribinos. Lo miramos sin compromiso.
+                Estés donde estés, si algo de tu negocio te hace perder tiempo, escribinos. Lo miramos sin compromiso.
               </p>
             </div>
 

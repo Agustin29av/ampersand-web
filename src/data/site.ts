@@ -8,8 +8,33 @@ export const contact = {
   instagram: 'ampersand.development',
   instagramUrl: 'https://www.instagram.com/ampersand.development/',
   location: 'Concepción del Uruguay, Entre Ríos',
-  team: 'Oscar, Agus y Eric',
 };
+
+// Revisión propia de noviembre de 2026: páginas de negocios de Entre Ríos abiertas una por una desde el celular.
+export const siteCheck = { reviewed: 199, broken: 26 };
+
+export const faqs: { q: string; a: string }[] = [
+  {
+    q: '¿Cuánto sale?',
+    a: 'Depende de lo que necesites: no es lo mismo una carta con pedidos que un sistema de cuotas. Primero te mostramos una prueba y después te pasamos un precio cerrado, antes de empezar. Sin sorpresas a mitad de camino.',
+  },
+  {
+    q: 'Ya tengo página. ¿Me sirve igual?',
+    a: 'Mandanos el link y te decimos qué vemos: si abre bien en el celular, si el dominio está al día, si el botón de WhatsApp funciona. Si está bien, te lo decimos y listo.',
+  },
+  {
+    q: '¿Y si la hago yo con inteligencia artificial?',
+    a: 'Podés, y en un fin de semana tenés algo armado. Lo que la IA no hace es lo del lunes: renovar el dominio, arreglarla cuando se cae, cargar los cambios y que las consultas no se pierdan. De eso nos encargamos nosotros.',
+  },
+  {
+    q: '¿La página queda a mi nombre?',
+    a: 'Sí. El dominio, los accesos y el código son tuyos. Si un día querés seguir con otra persona, te llevás todo.',
+  },
+  {
+    q: '¿Cuánto tarda?',
+    a: 'Una página simple, días. Un sistema, semanas. Con la prueba en la mano te decimos el plazo real para tu caso.',
+  },
+];
 
 export const whatsappUrl = (text: string) =>
   `https://wa.me/${contact.whatsapp}?text=${encodeURIComponent(text)}`;
@@ -105,7 +130,7 @@ export const projects: Project[] = [
 export const pillars: Pillar[] = [
   {
     title: 'Hablás con quien lo hace',
-    description: 'Somos tres. El que te escucha es el mismo que programa y el mismo que te atiende después.',
+    description: 'Somos un equipo chico. El que te escucha es el mismo que programa y el mismo que te atiende después.',
     icon: 'users',
   },
   {

@@ -5,6 +5,8 @@ import { Process } from './sections/Process/Process';
 import { Projects } from './sections/Projects/Projects';
 import { About } from './sections/About/About';
 import { Contact } from './sections/Contact/Contact';
+import { FAQ } from './sections/FAQ/FAQ';
+import { StickyWhatsApp } from './components/ui/StickyWhatsApp';
 import { MotionConfig } from 'framer-motion';
 import { MapPin, MessageCircle } from 'lucide-react';
 import { InstagramIcon } from './components/ui/InstagramIcon';
@@ -22,12 +24,14 @@ export function App() {
       {/* Main Sections */}
       <main className="flex-grow">
         <Hero />
+        <Projects />
         <Services />
         <Process />
-        <Projects />
         <About />
+        <FAQ />
         <Contact />
       </main>
+      <StickyWhatsApp />
 
       {/* Footer */}
       <footer className="bg-[#001133] text-gray-400 pt-16 pb-10 border-t border-[#02C2B5]/10">
@@ -55,7 +59,7 @@ export function App() {
               </div>
 
               <p className="text-xs text-gray-400 leading-relaxed max-w-sm">
-                Páginas y sistemas para negocios de Entre Ríos. Hechos por tres personas que atienden el teléfono.
+                Páginas y sistemas para negocios de Entre Ríos. Hechos por gente que atiende el teléfono.
               </p>
 
               {/* Redes */}

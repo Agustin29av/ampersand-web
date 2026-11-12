@@ -53,8 +53,8 @@ export function Projects() {
     <section id="proyectos" className="bg-[#f5f7fa] py-24 sm:py-32">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
-          title="Lo que hicimos. Entrá y probalo."
-          description="Un producto en producción y dos demos con datos de ejemplo. Son links reales: tocá y usalos como si fueran tuyos."
+          title="No te contamos lo que hacemos. Te lo mostramos."
+          description="Somos un estudio nuevo, así que en vez de logos de clientes te mostramos lo que construimos: un producto en producción y dos demos con datos de ejemplo. Son links reales, tocalos."
         />
 
         <div className="mt-14 grid gap-6 lg:grid-cols-2">

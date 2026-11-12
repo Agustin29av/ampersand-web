@@ -1,94 +1,89 @@
+import { useState } from 'react';
 import { ArrowRight, Check } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { contact, projects, whatsappUrl } from '../../data/site';
+import { AmpersandField } from '../../components/ui/AmpersandField';
+import { contact, siteCheck, whatsappUrl } from '../../data/site';
 import { easeOut } from '../../lib/motion';
 
-const featured = projects[0];
-
-/** Portada: una frase sobre lo que hacemos y el producto real al lado. Única animación de entrada del sitio. */
+/** Portada: el gancho, una revisión gratis de la página como primer paso y la «&» en 3D. */
 export function Hero() {
+  const [url, setUrl] = useState('');
+
+  const ask = url.trim()
+    ? `Hola Ampersand, ¿me revisan esta página? ${url.trim()}`
+    : 'Hola Ampersand, ¿me revisan la página de mi negocio?';
+
   return (
-    <section className="relative overflow-hidden bg-[#fafbfd] pt-24 pb-16 sm:pt-28 lg:pt-32 lg:pb-24">
-      <div className="mx-auto grid max-w-7xl gap-12 px-4 sm:px-6 lg:grid-cols-12 lg:items-center lg:gap-10 lg:px-8">
+    <section id="inicio" className="relative overflow-hidden bg-navy-dark pt-28 pb-16 text-white sm:pt-32 lg:pt-36 lg:pb-24">
+      <div className="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-12 lg:items-center lg:px-8">
         <motion.div
-          initial={{ opacity: 0, y: 18 }}
+          initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: easeOut }}
-          className="lg:col-span-6"
+          className="relative z-10 lg:col-span-6"
         >
-          <p className="text-base font-medium text-turquesa-dark">Software para negocios de Entre Ríos</p>
-          <h1 className="mt-4 max-w-[13ch] text-4xl leading-[1.05] font-bold tracking-tight text-navy text-balance sm:text-5xl lg:text-[3.6rem]">
-            Hacemos la página y el sistema que tu negocio usa todos los días.
+          <h1 className="text-[2.6rem] leading-[1.02] font-bold text-balance sm:text-6xl lg:text-[4.2rem]">
+            Tu negocio anda. ¿Tu página también?
           </h1>
-          <p className="mt-6 max-w-lg text-lg leading-relaxed text-slate-600">
-            Somos {contact.team}. Estamos en {contact.location}, y el que te escucha es el mismo que lo construye.
+          <p className="mt-6 max-w-xl text-lg leading-relaxed text-slate-300">
+            Revisamos {siteCheck.reviewed} páginas de negocios de Entre Ríos y {siteCheck.broken} directamente no abren.
+            Hacemos páginas y sistemas que venden, y nos hacemos cargo de que sigan andando.
           </p>
 
-          <div className="mt-8 flex flex-wrap items-center gap-x-7 gap-y-4">
-            <a
-              href={whatsappUrl(contact.whatsappGreeting)}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group inline-flex min-h-13 items-center justify-center gap-2.5 rounded-full bg-navy px-7 text-base font-semibold text-white shadow-md transition-[background-color,box-shadow,scale] duration-200 hover:bg-navy-light hover:shadow-lg active:scale-[0.98]"
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              window.open(whatsappUrl(ask), '_blank', 'noopener');
+            }}
+            className="mt-8 flex max-w-xl flex-col gap-3 sm:flex-row"
+          >
+            <label className="sr-only" htmlFor="hero-url">
+              Link de tu página
+            </label>
+            <input
+              id="hero-url"
+              type="url"
+              inputMode="url"
+              autoComplete="url"
+              spellCheck={false}
+              placeholder="Pegá el link de tu página…"
+              value={url}
+              onChange={(e) => setUrl(e.target.value)}
+              className="min-h-13 flex-1 rounded-full border border-white/15 bg-white/5 px-5 text-base text-white placeholder-slate-400 outline-none transition-colors focus:border-turquesa focus:bg-white/10"
+            />
+            <button
+              type="submit"
+              className="group inline-flex min-h-13 items-center justify-center gap-2 rounded-full bg-turquesa px-6 text-base font-semibold text-navy-dark transition-[background-color,scale] duration-200 hover:bg-[#2fd6ca] active:scale-[0.98]"
             >
-              Escribinos por WhatsApp
+              Revisala gratis
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-            </a>
-            <a href="#proyectos" className="group inline-flex items-center gap-2 text-base font-semibold text-navy">
-              <span className="relative">
-                Ver lo que hicimos
-                <span className="absolute -bottom-0.5 left-0 h-px w-full origin-left scale-x-0 bg-navy transition-transform duration-300 group-hover:scale-x-100" />
-              </span>
-              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-            </a>
-          </div>
+            </button>
+          </form>
 
-          <ul className="mt-8 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-slate-500">
+          <a
+            href={whatsappUrl('Hola Ampersand, no tengo página y quiero una para mi negocio.')}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-4 inline-flex min-h-11 items-center gap-2 text-[15px] font-medium text-slate-300 underline-offset-4 hover:text-white hover:underline"
+          >
+            ¿No tenés página? Escribinos igual
+            <ArrowRight className="h-4 w-4" />
+          </a>
+
+          <ul className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-slate-400">
             <li className="flex items-center gap-1.5">
               <Check className="h-4 w-4 text-turquesa" strokeWidth={2.5} />
-              Respondemos en menos de 24 hs hábiles
+              Te respondemos por WhatsApp en menos de 24 hs hábiles
             </li>
             <li className="flex items-center gap-1.5">
               <Check className="h-4 w-4 text-turquesa" strokeWidth={2.5} />
-              Primero lo ves, después decidís
+              Somos de {contact.location.split(',')[0]}
             </li>
           </ul>
         </motion.div>
 
-        <motion.a
-          href={featured.href}
-          target="_blank"
-          rel="noopener noreferrer"
-          initial={{ opacity: 0, y: 18 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: easeOut, delay: 0.12 }}
-          className="group relative block lg:col-span-6"
-          aria-label={`Ver ${featured.title}`}
-        >
-          {/* Marco de navegador con una captura real del producto, no una ilustración. */}
-          <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-[0_32px_64px_-32px_rgba(0,23,72,0.35)] transition-transform duration-500 group-hover:-translate-y-1">
-            <div className="flex items-center gap-1.5 border-b border-slate-100 bg-slate-50 px-4 py-2.5">
-              <span className="h-2.5 w-2.5 rounded-full bg-slate-300" />
-              <span className="h-2.5 w-2.5 rounded-full bg-slate-300" />
-              <span className="h-2.5 w-2.5 rounded-full bg-slate-300" />
-              <span className="ml-3 truncate rounded-md bg-white px-2.5 py-0.5 text-xs text-slate-500 ring-1 ring-slate-200">
-                tuautogestion.com
-              </span>
-            </div>
-            <img
-              src={featured.image}
-              alt={featured.imageAlt}
-              width={1440}
-              height={900}
-              fetchPriority="high"
-              className="aspect-[16/10] w-full object-cover object-top"
-            />
-          </div>
-          <p className="mt-3 text-sm text-slate-500">
-            <span className="font-semibold text-navy">{featured.title}</span>, nuestro producto para agencias de autos.
-            Hoy en producción.
-          </p>
-        </motion.a>
+        {/* En el celular la «&» queda de fondo, detrás del texto; en escritorio ocupa su columna. */}
+        <AmpersandField className="pointer-events-none absolute inset-x-0 top-20 h-[420px] opacity-25 lg:pointer-events-auto lg:relative lg:inset-auto lg:top-auto lg:col-span-6 lg:h-[540px] lg:cursor-crosshair lg:opacity-100" />
       </div>
     </section>
   );

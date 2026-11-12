@@ -6,9 +6,10 @@ import { contact, whatsappUrl } from '../../data/site';
 
 const navLinks = [
   { name: 'Inicio', href: '#', id: 'inicio' },
-  { name: 'Servicios', href: '#servicios', id: 'servicios' },
   { name: 'Proyectos', href: '#proyectos', id: 'proyectos' },
-  { name: 'Sobre nosotros', href: '#nosotros', id: 'nosotros' },
+  { name: 'Servicios', href: '#servicios', id: 'servicios' },
+  { name: 'Nosotros', href: '#nosotros', id: 'nosotros' },
+  { name: 'Preguntas', href: '#preguntas', id: 'preguntas' },
   { name: 'Contacto', href: '#contacto', id: 'contacto' },
 ];
 
@@ -22,7 +23,7 @@ export const Navbar: React.FC = () => {
       setIsScrolled(window.scrollY > 20);
 
       // Detect active section
-      const sections = ['contacto', 'nosotros', 'proyectos', 'proceso', 'servicios'];
+      const sections = ['contacto', 'preguntas', 'nosotros', 'proceso', 'servicios', 'proyectos'];
       // El scroll ya no es suave: el header solo marca la sección activa.
       let current = 'inicio';
       for (const id of sections) {
